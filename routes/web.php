@@ -12,5 +12,5 @@
 */
     
 Route::get('/', 'CitiesController@index')->name('home');
-Route::post('/store', 'CitiesController@store')->name('store');
-Route::get('/test', 'CitiesController@show')->name('show');
+    Route::get('/city/{city}', 'CitiesController@show')->name('show');
+    Route::post('/store', 'CitiesController@store')->name('store');

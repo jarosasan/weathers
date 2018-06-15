@@ -16,7 +16,14 @@
         public function GetWeather($city, $key)
         {
             $client = new Client();
-            $response = $client->get('http://api.openweathermap.org/data/2.5/weather?q='.$city.'&appid='.$key);
+            $response = $client->get('http://api.openweathermap.org/data/2.5/weather?q='.$city.'&units=metric&appid='.$key);
+            $result = json_decode($response->getBody()->getContents());
+            return $result;
+        }
+        public function GetCity($city, $key)
+        {
+            $client = new Client();
+            $response = $client->get('http://api.openweathermap.org/data/2.5/find?q='.$city.'&type=accurate&appid='.$key);
             $result = json_decode($response->getBody()->getContents());
             return $result;
         }

@@ -24,33 +24,18 @@
                 <div class="col">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                            <a class="nav-link active" href="{{route('home')}}" role="tab" aria-selected="true">Home</a>
                         </li>
-                        @foreach($cities as $city)
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">{{$city->name}}</a>
-                            </li>
-                        @endforeach
+                        @if(!empty($cities))
+                            @foreach($cities as $city)
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="{{route('show', $city->name)}}" role="tab" aria-selected="false">{{$city->name}}</a>
+                                </li>
+                            @endforeach
+                        @endif
                     </ul>
                     <br>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <form action="{{url('/store')}}" method="post">
-	                            @csrf
-                                <div class="input-group mb-3">
-                                    <input type="text" name="key" class="form-control" placeholder="API key" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="text" name="name" class="form-control" placeholder="City" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button  class="btn btn-success btn-submit" style="color:white;" type="button">&#10003;</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-                    </div>
+                    @yield('content')
                 </div>
             </div>
         </div>

@@ -24,9 +24,9 @@ class CityStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> 'required|unique:cities|string|min:2',
+            'name'=> 'required|string|min:2|regex:/^[\pL\s\-]+$/u|unique:cities,name',
             'key'=> 'required|min:2',
-            'token'=> 'required|min:2'
+            '_token'=> 'required|min:2'
         ];
     }
 }

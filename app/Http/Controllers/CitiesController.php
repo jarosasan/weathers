@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\ApiKey;
 use App\City;
 use App\Http\Requests\CityStoreRequest;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use App\Facades\WeatherApiService;
 use Illuminate\Support\Facades\Response;
@@ -20,7 +18,7 @@ class CitiesController extends Controller
     public function index()
     {
         $cities = City::all();
-        return view('welcome', ['cities'=>$cities]);
+        return view('form', ['cities'=>$cities]);
     }
 
     /**
@@ -39,16 +37,18 @@ class CitiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CityStoreRequest $request)
     {
-        $response = WeatherApiService::GetWeather($request->name, $request->key);
+        $responseFromApi = WeatherApiService::GetCity($request->name, $request->key);
         $city = new City();
-        $city->name = ucfirst($request->name);
+        $city->name = $responseFromApi->list[0]->name;
         $city->save();
-        $request->session()->put('key', $request->key);
-        dd($response);
-      
-//        return response()->json(['success'=>' rr Your enquiry has been successfully submitted!']);
+        $key = $request->key;
+        $cities = City::all();
+//        response()->json(['cities'=>$cities, 'key'=>$key]);
+//
+//        return view('welcome', ['cities'=>$cities, 'key'=>$key]);
+    
     
     }
 
@@ -58,10 +58,13 @@ class CitiesController extends Controller
      * @param  \App\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($city)
     {
-       
-        dd(WeatherApiService::GetWeather('vilnius', '32d8a01d1c19b2a485088bd43bfa12a0'));
+    
+        $data = WeatherApiService::GetWeather($city, '32d8a01d1c19b2a485088bd43bfa12a0');
+//        dd($data);
+        $cities = City::all();
+        return view('info', ['cities'=>$cities, 'data'=>$data]);
     }
  
     /**
@@ -95,6 +98,6 @@ class CitiesController extends Controller
      */
     public function destroy(City $city)
     {
-        //
+        echo 'labukas';
     }
 }

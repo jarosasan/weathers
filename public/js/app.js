@@ -13694,25 +13694,31 @@ module.exports = __webpack_require__(36);
 __webpack_require__(12);
 var $ = __webpack_require__(4);
 
-$('.btn-submit').click(function () {
-	// var token = $("input[name='_token']").val();
+$('.btn-submit').click(function (e) {
+	e.preventDefault();
 	var name = $("input[name='name']").val();
 	var key = $("input[name='key']").val();
 	var token = $('meta[name="csrf-token"]').attr('content');
 	$.ajax({
-
 		type: 'POST',
 		url: '/store',
 		data: { _token: token, name: name, key: key },
 		dataType: 'JSON',
-		success: function success(data) {
-			console.log(data);
+		success: function success() {
+			$('.errorContent').html('');
+			$('.errorContent').attr('hidden');
 		},
 		error: function error(_error) {
-			console.log(_error);
+			$('.errorContent').removeAttr('hidden');
+			$('.errorContent').html(_error['responseJSON']['message']);
 		}
 	});
 });
+
+// $('#profile-tab').click(function () {
+// 	var city = $("a[name=]")
+// 	$('#profile').p.html()
+// })
 
 /***/ }),
 /* 12 */
