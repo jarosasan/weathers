@@ -1,6 +1,7 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import "~open-weather-icons/scss/open-weather-icons";
 
 // Variables
 @import "variables";
@@ -11,4 +12,27 @@
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.header{
+  background-color: #007bff;
+  .top{
+    margin: 2rem 1rem;
+    color: whitesmoke;
+  }
+}
+.top-nav{
+  margin:1rem;
+}
+
+.tab-content{
+  justify-content: center;
+  width: 30rem;
+  margin: 1rem auto;
+  i {
+    font-size: 40px;
+    padding-bottom: 0;
+    color: #007bff;
+    margin-left:10px;
+  }
+
 }

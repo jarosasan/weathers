@@ -43,13 +43,9 @@ class CitiesController extends Controller
         $city = new City();
         $city->name = $responseFromApi->list[0]->name;
         $city->save();
-        $key = $request->key;
-        $cities = City::all();
-//        response()->json(['cities'=>$cities, 'key'=>$key]);
-//
-//        return view('welcome', ['cities'=>$cities, 'key'=>$key]);
-    
-    
+        session(['key'=> $request->key]);
+        
+        return response()->json(['city'=> $city->name]);
     }
 
     /**
@@ -60,11 +56,11 @@ class CitiesController extends Controller
      */
     public function show($city)
     {
-    
         $data = WeatherApiService::GetWeather($city, '32d8a01d1c19b2a485088bd43bfa12a0');
-//        dd($data);
         $cities = City::all();
-        return view('info', ['cities'=>$cities, 'data'=>$data]);
+        $city = City::where('name', '=' , $city)->get();
+//        dd($city);
+        return view('info', ['cities'=>$cities, 'data'=>$data, 'city' => $city]);
     }
  
     /**
@@ -96,8 +92,11 @@ class CitiesController extends Controller
      * @param  \App\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(City $city)
+    public function destroy($id)
     {
-        echo 'labukas';
+        $city = City::findOrFail($id);
+        $city->delete();
+        return redirect()->route('home');
+
     }
 }

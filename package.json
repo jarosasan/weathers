@@ -18,5 +18,8 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "open-weather-icons": "0.0.7"
     }
 }
