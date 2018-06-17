@@ -12,6 +12,6 @@
 */
     
 Route::get('/', 'CitiesController@index')->name('home');
-    Route::get('/city/{city}', 'CitiesController@show')->name('show');
-    Route::post('/store', 'CitiesController@store')->name('store');
-    Route::delete('/delete/{id}', 'CitiesController@destroy')->name('delete');
+Route::get('/city/{city}', 'CitiesController@show')->name('show');
+Route::post('/store', 'CitiesController@store')->name('store');
+Route::delete('/delete/{id}', 'CitiesController@destroy')->name('delete');
